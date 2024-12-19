@@ -1,6 +1,6 @@
 package com.spinthedrum.presentation.viewModel
 
-import android.content.Context
+import android.app.Application
 import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.core.graphics.drawable.toBitmap
@@ -18,15 +18,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
+enum class SelectedColorText{
+    RED,
+    YELLOW,
+    CYAN,
+    PURPLE
+}
 data class WheelUiState(
     val selectedColor: Int? = null,
     val wheelSize: Int = 150,
     val bitmap: Bitmap? = null,
-    val text: String? = null
+    val text: SelectedColorText? = null
 )
 
-class WheelViewModel(private val context: Context) : ViewModel() {
+class WheelViewModel(private val application: Application) : ViewModel()  {
     private val _uiState = MutableStateFlow(WheelUiState())
     val uiState: StateFlow<WheelUiState> = _uiState
     private var currentImage: Bitmap? = null
@@ -39,10 +44,10 @@ class WheelViewModel(private val context: Context) : ViewModel() {
                     when (selectedColor) {
                         Color.RED, Color.YELLOW, Color.CYAN, Color.rgb(128, 0, 128) -> {
                             val text = when (selectedColor) {
-                                Color.RED -> "Красный"
-                                Color.YELLOW -> "Жёлтый"
-                                Color.CYAN -> "Голубой"
-                                else -> "Фиолетовый"
+                                Color.RED -> SelectedColorText.RED
+                                Color.YELLOW -> SelectedColorText.YELLOW
+                                Color.CYAN -> SelectedColorText.CYAN
+                                else ->  SelectedColorText.PURPLE
                             }
                             _uiState.value = _uiState.value.copy(
                                 selectedColor = selectedColor,
@@ -74,10 +79,10 @@ class WheelViewModel(private val context: Context) : ViewModel() {
 
     private suspend fun loadImageFromURL(url: String) {
         withContext(Dispatchers.IO) {
-            val request = ImageRequest.Builder(context)
+            val request = ImageRequest.Builder(application)
                 .data(url)
                 .build()
-            val result =   context.imageLoader.execute(request)
+            val result =   application.imageLoader.execute(request)
             if (result is SuccessResult){
                 currentImage = result.drawable.toBitmap()
                 _uiState.value = _uiState.value.copy( bitmap = currentImage)
@@ -88,9 +93,10 @@ class WheelViewModel(private val context: Context) : ViewModel() {
         }
     }
     companion object {
-        fun provideFactory(context: Context): ViewModelProvider.Factory = viewModelFactory {
+        fun provideFactory() : ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                WheelViewModel(context)
+                val app = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as Application
+                WheelViewModel(app)
             }
         }
     }

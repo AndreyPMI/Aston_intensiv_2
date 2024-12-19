@@ -77,7 +77,7 @@ class WheelView(context: Context, attrs: AttributeSet?) : FrameLayout(context, a
         animation?.start()
     }
     override fun getSelectedSectorIndex(): Int {
-        val shiftedRotation = rotationAngle ;
+        val shiftedRotation = rotationAngle
         val normalizedRotation = shiftedRotation % 360
         val sectorAngle = 51f
         val selectedSector = (normalizedRotation / sectorAngle).toInt()
@@ -85,7 +85,7 @@ class WheelView(context: Context, attrs: AttributeSet?) : FrameLayout(context, a
     }
     override fun getSelectedColor(): Int {
         val selectedSectorIndex = getSelectedSectorIndex()
-        val shiftedIndex = (selectedSectorIndex) % colors.size;
+        val shiftedIndex = (selectedSectorIndex) % colors.size
         val selectedColor = colors[shiftedIndex]
         return selectedColor
     }

@@ -9,6 +9,7 @@ import android.graphics.Rect
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
+import com.spinthedrum.presentation.viewModel.SelectedColorText
 
 class ResultView(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
 
@@ -21,9 +22,9 @@ class ResultView(context: Context, attrs: AttributeSet? = null) : View(context, 
     }
     private val textBounds = Rect()
 
-    fun setContent(bitmap: Bitmap?, text: String?){
+    fun setContent(bitmap: Bitmap?, text: SelectedColorText?){
         this.bitmap = bitmap
-        this.text = text
+        this.text = text?.toString()?:""
         invalidate()
     }
 

@@ -34,6 +34,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:src="@drawable/ic_arrow"
+        android:contentDescription="@string/result"
         app:layout_constraintTop_toTopOf="@+id/wheelView"
         app:layout_constraintEnd_toEndOf="@+id/wheelView"
         app:layout_constraintStart_toStartOf="@+id/wheelView"
@@ -90,7 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/resultView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Clear"
+        android:text="@string/clear"
         />
 
 
