@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.spinthedrum.MainActivity">
+    <ImageView
+        android:id="@+id/arrowView"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_arrow"
+        app:layout_constraintTop_toTopOf="@+id/wheelView"
+        app:layout_constraintEnd_toEndOf="@+id/wheelView"
+        app:layout_constraintStart_toStartOf="@+id/wheelView"
+        android:layout_marginBottom="-24dp"
+        android:elevation="2dp"
+        app:tint="@color/red" />
+    <com.spinthedrum.presentation.ui.WheelView
+        android:id="@+id/wheelView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <SeekBar
+        android:id="@+id/sizeSeekBar"
+        android:layout_width="89dp"
+        android:layout_height="195dp"
+        android:max="100"
+        android:progress="50"
+        android:rotation="-90"
+        app:layout_constraintBottom_toBottomOf="@+id/wheelView"
+        app:layout_constraintStart_toEndOf="@+id/wheelView"
+        app:layout_constraintTop_toTopOf="@+id/wheelView" />
+
+    <com.spinthedrum.presentation.ui.ResultView
+        android:id="@+id/resultView"
+        android:layout_width="256dp"
+        android:layout_height="255dp"
+        android:layout_marginEnd="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.346" />
+
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/resultView"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="@+id/resultView"
+        app:layout_constraintTop_toBottomOf="@+id/resultView"
+        app:layout_constraintVertical_bias="0.442" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
